@@ -9,7 +9,7 @@ RaspberryPi:
 The program controls the two motors. 
 """
 
-from brickpi3 import BrickPi3
+from Code.brickpi3 import BrickPi3
 from time import sleep, time
 
 __author__ = "Andreas Venturini"
