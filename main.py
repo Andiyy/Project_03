@@ -9,8 +9,8 @@ RaspberryPi:
 The program controls the two motors. 
 """
 
-from Code.brickpi3 import BrickPi3
-from time import sleep, time
+from brickpi3 import BrickPi3
+import time
 
 __author__ = "Andreas Venturini"
 __license__ = "MIT"
@@ -27,52 +27,52 @@ b = BrickPi3().PORT_B
 def close_gripper():
     """Closes the gripper."""
     BP.set_motor_position_relative(a, -45)
-    sleep(2)
+    time.sleep(2)
 
 
 def move_up():
     """ Moves the gripper to the rope drum."""
-    # TODO: Change function to BP.set_motor_position_relative()
-    #       Saver then the sleep()
-    BP.set_motor_power(b, 80)
-    BP.get_motor_status(b)
-    sleep(9.5)
+
+    BP.reset_motor_encoder(b)
+    BP.set_motor_limits(b, power=80)
+
+    BP.set_motor_position_kd(b, kd=70)
+    BP.set_motor_position_kp(b, kp=70)
+    BP.set_motor_position(b, 6710)
+    time.sleep(20)
 
 
 def move_down():
     """Moves the crab back and then down."""
-    BP.set_motor_power(b, -10)
-    sleep(3)
-    BP.set_motor_power(b, -20)
-    sleep(2)
-    BP.set_motor_power(b, 0)
-    sleep(2)
+    BP.reset_motor_encoder(b)
+    BP.set_motor_limits(b, power=15)
+    BP.set_motor_position(b, -200)
+    time.sleep(2)
 
 
 def open_gripper():
     """Opens the gripper."""
-    BP.set_motor_position_relative(a, 45)
-    sleep(1)
-    BP.set_motor_power(a, 0)
+    BP.set_motor_power(a, 30)
+    time.sleep(1)
 
 
 def open_move_up():
     """Moves the open gripper up."""
-    BP.set_motor_power(b, 80)
-    sleep(1)
+    BP.reset_motor_encoder(b)
+    BP.set_motor_limits(b, power=100)
+    BP.set_motor_position(b, 200)
+    time.sleep(2)
 
 
 def main():
     try:
-        start = time()
+        start = time.time()
         close_gripper()
         move_up()
         move_down()
         open_gripper()
         open_move_up()
-        stop = time()
-
-        print("Time: ", stop - start)
+        print("Time: ", time.time() - start)
 
     except KeyboardInterrupt:
         print('The program was stopped manually!')
