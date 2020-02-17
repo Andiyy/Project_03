@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""The programme for the 'Gipfel-Ei' project (WI-19/20).
+"""The program for the 'Gipfel-Ei'-project (WI-19/20).
 
 RaspberryPi:
     - ID:       141.82.7.65
@@ -12,11 +12,11 @@ The program controls the two motors.
 from brickpi3 import BrickPi3
 import time
 
-__author__ = "Andreas Venturini"
-__license__ = "MIT"
-__version__ = "0.1.5"
-__email__ = "Andreas.Venturini@HS-Augsburg.DE"
-__status__ = "In Work"
+__author__ = 'Andreas Venturini'
+__license__ = 'MIT'
+__version__ = '1.0'
+__email__ = 'Andreas.Venturini@HS-Augsburg.DE'
+__status__ = 'Done'
 
 
 BP = BrickPi3()
@@ -32,14 +32,13 @@ def close_gripper():
 
 def move_up():
     """ Moves the gripper to the rope drum."""
-
     BP.reset_motor_encoder(b)
     BP.set_motor_limits(b, power=80)
 
     BP.set_motor_position_kd(b, kd=70)
     BP.set_motor_position_kp(b, kp=70)
     BP.set_motor_position(b, 6710)
-    time.sleep(20)
+    time.sleep(17)
 
 
 def move_down():
